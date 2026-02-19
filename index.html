@@ -861,6 +861,14 @@
       /*        RESPONSIVE DESIGN      */
       /* ============================= */
       @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: inline-flex;
+          position: absolute;
+          top: 12px;
+          right: 14px;
+          z-index: 1002;
+        }
+
         body {
           padding: 10px;
         }
@@ -872,6 +880,13 @@
 
         header {
           padding: 14px;
+          align-items: flex-start;
+          padding-right: 68px;
+        }
+
+        .logo-container {
+          width: 100%;
+          min-width: 0;
         }
 
         .tagline {
@@ -885,16 +900,22 @@
 
         .header-tabs {
           display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
           width: 100%;
           justify-content: flex-start;
+          gap: 8px;
+          padding: 12px;
+          background: linear-gradient(135deg, #2d1b3d 0%, #1a0b2e 100%);
+          border-top: 1px solid rgba(255, 215, 0, 0.25);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+          z-index: 1001;
         }
 
         .header-tabs.active {
           display: flex;
-        }
-
-        .mobile-menu-btn {
-          display: inline-flex;
         }
 
         .header-tab {
