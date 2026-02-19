@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="290" y="110" width="220" height="300" rx="22" fill="#ecfeff"/>
+  <rect x="320" y="150" width="160" height="190" rx="12" fill="#99f6e4"/>
+  <circle cx="400" cy="366" r="12" fill="#0f766e"/>
+  <line x1="170" y1="210" x2="280" y2="250" stroke="#d1fae5" stroke-width="12"/>
+  <circle cx="170" cy="210" r="16" fill="#d1fae5"/>
+  <text x="60" y="450" font-size="46" font-family="Arial" font-weight="700" fill="#ecfdf5">Phone and Device Repairs</text>
+</svg>

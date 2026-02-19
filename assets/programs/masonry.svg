@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#3f3f46"/>
+      <stop offset="100%" stop-color="#78716c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <g fill="#e7e5e4" stroke="#57534e" stroke-width="6">
+    <rect x="150" y="140" width="160" height="80"/>
+    <rect x="320" y="140" width="160" height="80"/>
+    <rect x="490" y="140" width="160" height="80"/>
+    <rect x="235" y="230" width="160" height="80"/>
+    <rect x="405" y="230" width="160" height="80"/>
+  </g>
+  <text x="120" y="435" font-size="50" font-family="Arial" font-weight="700" fill="#fafaf9">Masonry and Blocklaying</text>
+</svg>

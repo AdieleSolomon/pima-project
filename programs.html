@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs - PIMA TRAINING INSTITUTE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        * { 
+            margin: 0;
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b3d 100%);
+            color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            background: #2d1b3d;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2d1b3d 0%, #1a0b2e 100%);
+            padding: 20px 30px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ffd700;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo { 
+            color: #ffd700; 
+            font-size: 32px; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center;
+            gap: 10px; 
+            font-family: 'Raleway', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .gear { 
+            width: 24px;
+            height: 24px;
+            border: 3px solid #ffd700; 
+            border-radius: 50%; 
+            position: relative;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .gear::before { 
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 10px; 
+            height: 10px;
+            background: #ffd700; 
+            border-radius: 50%; 
+        }
+
+        .tagline { 
+            color: #b8a3c7; 
+            font-size: 14px; 
+            margin-top: 5px; 
+            letter-spacing: 3px; 
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(45, 27, 61, 0.7), rgba(45, 27, 61, 0.9)), 
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #f3e69d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: #e0d6eb;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .yellow-accent { 
+            height: 8px; 
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            margin: 0; 
+        }
+
+        .content { 
+            padding: 40px 30px; 
+            background: linear-gradient(135deg, #3d1a4f 0%, #2d1b3d 100%); 
+            width: 100%; 
+        }
+
+        .page-title {
+            color: #ffd700;
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #b8a3c7;
+            font-size: 18px;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 0;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .course-body {
+            padding: 20px;
+        }
+
+        .course-title {
+            color: #ffd700;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .course-description {
+            color: #d0c5dd;
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .course-duration {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .course-duration i {
+            color: #ffd700;
+        }
+
+        .yellow-btn { 
+            background: linear-gradient(135deg, #ffd700, #ffed4e); 
+            color: #2d1b3d;
+            border: none; 
+            padding: 12px 24px; 
+            font-size: 15px; 
+            font-weight: 600;
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            width: 100%;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .yellow-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .contact-info { 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-top: 40px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-row { 
+            display: flex; 
+            justify-content: space-between; 
+            color: #b8a3c7; 
+            font-size: 14px; 
+            margin-bottom: 15px; 
+        }
+        
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-row .phone-numbers { 
+            padding-right: 100px; 
+            border-right: 2px solid rgba(255, 255, 255, 0.2); 
+        }
+
+        .phone-numbers { 
+            font-weight: 600; 
+            color: white; 
+            font-size: 16px;
+        }
+
+        .address { 
+            font-size: 14px; 
+            line-height: 1.5; 
+        }
+        
+        .address-title {
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .website { 
+            background: linear-gradient(135deg, #ffd700, #ffed4e); 
+            color: #2d1b3d; 
+            text-align: center; 
+            padding: 12px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-top: 20px; 
+            border-radius: 8px; 
+            letter-spacing: 0.5px;
+        }
+
+        .header-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .header-tab {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f3e8ff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .header-tab:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        /* ============================= */
+        /*        NAVIGATION STYLES      */
+        /* ============================= */
+        .three-line-btn {
+            width: 40px;
+            height: 40px;
+            background: #2d1b3d;
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .three-line-btn:hover {
+            background: #3d1a4f;
+        }
+
+        .three-line-btn .line {
+            width: 20px;
+            height: 2px;
+            background: #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        .three-line-btn.active .line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .three-line-btn.active .line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .three-line-btn.active .line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .side-panel {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            background: linear-gradient(135deg, #4a2c5a 0%, #3d1a4f 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .side-panel.active {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .side-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .side-panel-title {
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .side-panel-close {
+            background: none;
+            border: none;
+            color: #b8a3c7;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .side-panel-close:hover {
+            color: #ffd700;
+        }
+
+        .side-panel-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .side-panel-option {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-align: left;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .side-panel-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .side-panel-option i {
+            margin-right: 10px;
+            color: #ffd700;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ============================= */
+        /*        MODAL STYLES           */
+        /* ============================= */
+        .modal-overlay { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.8); 
+            z-index: 1100; 
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
+        }
+
+        .modal-overlay.show { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            opacity: 1; 
+        }
+
+        .modal-content { 
+            background: linear-gradient(135deg, #4a2c5a 0%, #3d1a4f 100%); 
+            border-radius: 10px; 
+            width: 90%; 
+            max-width: 500px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            position: relative; 
+            transform: scale(0.7); 
+            transition: transform 0.3s ease; 
+        }
+
+        .modal-overlay.show .modal-content { 
+            transform: scale(1); 
+        }
+
+        .modal-header { 
+            background: #2d1b3d; 
+            padding: 20px; 
+            border-radius: 10px 10px 0 0; 
+            position: relative; 
+        }
+
+        .modal-title { 
+            color: #ffd700; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+        }
+
+        .close-btn { 
+            position: absolute; 
+            right: 15px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            background: none; 
+            border: none; 
+            color: #b8a3c7; 
+            font-size: 24px; 
+            cursor: pointer; 
+        }
+
+        .modal-body { 
+            padding: 30px; 
+        }
+
+        @media (max-width: 992px) {
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-tabs {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .header-tab {
+                flex: 1 1 calc(50% - 8px);
+                text-align: center;
+            }
+
+            .side-panel {
+                width: 100%;
+                right: 0;
+                left: 0;
+            }
+            
+            .contact-row {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .contact-row .phone-numbers {
+                padding-right: 0;
+                border-right: none;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+                padding-bottom: 20px;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .page-title {
+                font-size: 30px;
+            }
+            
+            header {
+                padding: 15px 20px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-tab {
+                flex: 1 1 100%;
+            }
+
+            .logo {
+                font-size: 26px;
+            }
+            
+            .page-title {
+                font-size: 26px;
+            }
+            
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .course-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">PIMA<div class="gear"></div>TRAINING</div>
+                <div class="tagline">TECHNICAL SKILLS HUB</div>
+            </div>
+
+            <nav class="header-tabs" aria-label="Main Navigation">
+                <a class="header-tab" href="index.html">Home</a>
+                <button class="header-tab" onclick="window.location.href='index.html#registration'">Register Now</button>
+                <a class="header-tab" href="student-profile.html">Student Portal</a>
+                <a class="header-tab" href="teacher-dashboard.html">Teacher Portal</a>
+                <a class="header-tab" href="admin-dashboard.html">Admin Portal</a>
+                <a class="header-tab" href="programs.html">Programs</a>
+                <a class="header-tab" href="about.html">About Us</a>
+                <a class="header-tab" href="contact.html">Contact</a>
+            </nav>
+        </header>
+        
+        <div class="hero-section">
+            <div class="banner-image">
+                <div class="hero-content">
+                    <h1 class="hero-title">Explore Our Technical Programs</h1>
+                    <p class="hero-subtitle">Build practical, employable skills through hands-on vocational and technical training.</p>
+                    <p class="page-subtitle">Programs for degree holders, undergraduates, O'Level holders, and learners with no certificate</p>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="yellow-accent"></div>
+        
+        <main class="content">
+            <div class="course-grid">
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/plumbing.svg" alt="Plumbing installation training">
+                    <div class="course-body">
+                        <h3 class="course-title">Plumbing Installation</h3>
+                        <p class="course-description">Learn water systems, pipe routing, fittings, leak repairs, and sanitary installations for domestic and commercial buildings.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 12 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/tiling.svg" alt="Wall and floor tiling">
+                    <div class="course-body">
+                        <h3 class="course-title">Wall &amp; Floor Tiling</h3>
+                        <p class="course-description">Develop practical site skills in tiling layout, accurate cutting, adhesive work, grouting, and finishing standards.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 10 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/tailoring.svg" alt="Tailoring and fashion">
+                    <div class="course-body">
+                        <h3 class="course-title">Tailoring &amp; Fashion Production</h3>
+                        <p class="course-description">Train in pattern drafting, fabric cutting, machine operation, stitching, finishing, and quality control for client-ready outfits.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 14 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/electrical.svg" alt="Electrical installation">
+                    <div class="course-body">
+                        <h3 class="course-title">Electrical Installation</h3>
+                        <p class="course-description">Master safe domestic wiring, panel setup, fault tracing, and routine electrical maintenance with safety compliance.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 14 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/carpentry.svg" alt="Carpentry and woodwork">
+                    <div class="course-body">
+                        <h3 class="course-title">Carpentry &amp; Woodwork</h3>
+                        <p class="course-description">Build competence in furniture production, framing, measurements, hand tools, power tools, and workshop safety.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 16 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/welding.svg" alt="Welding and fabrication">
+                    <div class="course-body">
+                        <h3 class="course-title">Welding &amp; Metal Fabrication</h3>
+                        <p class="course-description">Practice metal cutting, joining, shaping, and fabrication workflows used in gates, frames, and structural jobs.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 14 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/painting.svg" alt="Painting and decorative finishes">
+                    <div class="course-body">
+                        <h3 class="course-title">Painting &amp; Decorative Finishes</h3>
+                        <p class="course-description">Learn surface preparation, coating systems, finishing techniques, and modern decorative paint applications.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 8 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/hvac.svg" alt="HVAC and refrigeration">
+                    <div class="course-body">
+                        <h3 class="course-title">HVAC &amp; Refrigeration</h3>
+                        <p class="course-description">Gain practical knowledge in cooling systems, gas charging, troubleshooting, and preventive servicing procedures.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 12 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/automobile.svg" alt="Automobile mechanics">
+                    <div class="course-body">
+                        <h3 class="course-title">Automobile Mechanics</h3>
+                        <p class="course-description">Train in engine basics, diagnostics, brake systems, servicing routines, and workshop best practices.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 16 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/solar.svg" alt="Solar installation and maintenance">
+                    <div class="course-body">
+                        <h3 class="course-title">Solar Installation &amp; Maintenance</h3>
+                        <p class="course-description">Install, wire, and maintain small solar systems, inverters, and batteries for homes and small businesses.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 10 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/masonry.svg" alt="Masonry and blocklaying">
+                    <div class="course-body">
+                        <h3 class="course-title">Masonry &amp; Blocklaying</h3>
+                        <p class="course-description">Build site-ready skills in setting blocks, mortar mixing, alignment, and wall finishing for construction projects.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 12 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/upholstery.svg" alt="Furniture upholstery">
+                    <div class="course-body">
+                        <h3 class="course-title">Furniture Upholstery</h3>
+                        <p class="course-description">Learn cushioning, fabric fitting, finishing, and restoration of chairs, sofas, and interior furniture pieces.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 10 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/cctv.svg" alt="CCTV and security systems">
+                    <div class="course-body">
+                        <h3 class="course-title">CCTV &amp; Security Systems</h3>
+                        <p class="course-description">Install and configure surveillance cameras, cabling, and monitoring systems for homes and businesses.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 8 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <img class="course-image" src="assets/programs/phone-repair.svg" alt="Phone and device repairs">
+                    <div class="course-body">
+                        <h3 class="course-title">Phone &amp; Device Repairs</h3>
+                        <p class="course-description">Train in diagnosis, parts replacement, soldering basics, and maintenance for smartphones and electronic devices.</p>
+                        <p class="course-duration"><i class="fas fa-clock"></i> 8 Weeks</p>
+                        <button class="yellow-btn" onclick="window.location.href='index.html#registration'">Register</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info"> 
+                <div class="contact-row">
+                    <div class="contact-item">
+                        <div class="phone-numbers">08064530154 <br> 08058100008</div>
+                        <div>Contact our admissions team</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="address-title">Our Location</div>
+                        <div class="address">PIMA TRAINING INSTITUTE Building,<br> opposite Babcock Teaching Hospital,<br> Babcock University, Ilishan-Remo, Ogun State.</div>
+                    </div>
+                </div>
+            </div>
+            <footer class="website">www.pimatraininginstitute.edu</footer>
+        </main>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">PIMA<div class="gear"></div>Registration</div>
+                <button class="close-btn" onclick="closeRegistrationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 40px; color: #b8a3c7;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 50px; margin-bottom: 20px; color: #ffd700;"></i>
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">Registration Feature</h3>
+                    <p>This registration modal would connect to your backend system. For full functionality, please use the registration form on the homepage.</p>
+                    <button class="yellow-btn" style="margin-top: 20px;" onclick="closeRegistrationModal(); window.location.href='index.html';">Go to Homepage</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portal Access Modal -->
+    <div class="modal-overlay portal-modal" id="portalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Portal Access</div>
+                <button class="close-btn" onclick="closePortalModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 40px; color: #b8a3c7;">
+                    <i class="fas fa-right-to-bracket" style="font-size: 50px; margin-bottom: 20px; color: #ffd700;"></i>
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">Portal Access</h3>
+                    <p>Select a portal below to continue.</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                        <a class="yellow-btn" href="student-profile.html" style="text-decoration: none; display: inline-block;">Open Student Portal</a>
+                        <a class="yellow-btn" href="teacher-dashboard.html" style="text-decoration: none; display: inline-block;">Open Teacher Portal</a>
+                        <a class="yellow-btn" href="admin-dashboard.html" style="text-decoration: none; display: inline-block;">Open Admin Portal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const threeLineBtn = document.getElementById('threeLineBtn');
+        const sidePanel = document.getElementById('sidePanel');
+        const sidePanelClose = document.getElementById('sidePanelClose');
+
+        function toggleSidePanel() {
+            if (!threeLineBtn || !sidePanel) return;
+            threeLineBtn.classList.toggle('active');
+            sidePanel.classList.toggle('active');
+        }
+
+        function closeSidePanelOnClickOutside(event) {
+            if (!threeLineBtn || !sidePanel) return;
+            const isClickInsideSidePanel = sidePanel.contains(event.target);
+            const isClickOnMenuButton = threeLineBtn.contains(event.target);
+            
+            if (!isClickInsideSidePanel && !isClickOnMenuButton && sidePanel.classList.contains('active')) {
+                toggleSidePanel();
+            }
+        }
+
+        // Modal functionality
+        function openRegistrationModal() {
+            document.getElementById('registrationModal').classList.add('show');
+            closeSidePanelIfOpen();
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('registrationModal').classList.remove('show');
+        }
+
+        function openPortalModal() {
+            document.getElementById('portalModal').classList.add('show');
+            closeSidePanelIfOpen();
+        }
+
+        function closePortalModal() {
+            document.getElementById('portalModal').classList.remove('show');
+        }
+
+        function closeSidePanelIfOpen() {
+            if (sidePanel && sidePanel.classList.contains('active')) {
+                toggleSidePanel();
+            }
+        }
+
+        // Close modals when clicking outside
+        document.getElementById('registrationModal').addEventListener('click', function(e) {
+            if (e.target === this) closeRegistrationModal();
+        });
+        
+        document.getElementById('portalModal').addEventListener('click', function(e) {
+            if (e.target === this) closePortalModal();
+        });
+
+        // Escape key to close modals and side panel
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegistrationModal();
+                closePortalModal();
+                if (sidePanel && sidePanel.classList.contains('active')) {
+                    toggleSidePanel();
+                }
+            }
+        });
+
+        // Event listeners
+        if (threeLineBtn && sidePanel && sidePanelClose) {
+            threeLineBtn.addEventListener('click', toggleSidePanel);
+            sidePanelClose.addEventListener('click', toggleSidePanel);
+            document.addEventListener('click', closeSidePanelOnClickOutside);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#5b3b1f"/><stop offset="100%" stop-color="#b27a43"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="220" y="150" width="260" height="70" rx="10" fill="#fde68a"/>
+  <rect x="460" y="175" width="170" height="22" rx="8" fill="#fef3c7"/>
+  <rect x="350" y="220" width="38" height="140" fill="#92400e"/>
+  <rect x="300" y="350" width="140" height="20" rx="8" fill="#78350f"/>
+  <text x="120" y="435" font-size="50" font-family="Arial" font-weight="700" fill="#fff7ed">Carpentry and Woodwork</text>
+</svg>
