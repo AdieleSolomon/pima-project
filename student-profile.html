@@ -53,6 +53,13 @@
             padding: 15px 0;
             margin-bottom: 30px;
             border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
         
         .logo {
@@ -82,6 +89,15 @@
             height: 8px;
             background: var(--text);
             border-radius: 50%;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 4px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .header-tabs {
@@ -654,6 +670,11 @@
                 display: flex;
             }
 
+            .logo-container {
+                width: 100%;
+                min-width: 0;
+            }
+
             .header-tab {
                 flex: 1 1 calc(50% - 8px);
                 text-align: center;
@@ -741,9 +762,9 @@
     <!-- Student Dashboard -->
     <div id="dashboard" class="container hidden">
         <header>
-            <div class="logo">
-                PIMA<div class="gear"></div>TRAINING
-                <span style="font-size: 18px; margin-left: 10px; color: var(--text-secondary);">Student Portal</span>
+            <div class="logo-container">
+                <div class="logo">PIMA<div class="gear"></div>TRAINING</div>
+                <div class="tagline">TECHNICAL SKILLS HUB</div>
             </div>
 
             <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false">
