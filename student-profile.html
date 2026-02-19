@@ -618,8 +618,8 @@
             .mobile-menu-btn {
                 display: inline-flex;
                 position: absolute;
-                top: 12px;
-                right: 14px;
+                top: 14px;
+                right: 16px;
                 z-index: 1002;
             }
 
@@ -646,6 +646,7 @@
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
+                padding: 15px 20px;
                 align-items: flex-start;
                 padding-right: 68px;
             }
@@ -691,8 +692,18 @@
         }
 
         @media (max-width: 480px) {
+            .logo {
+                font-size: 26px;
+            }
+
+            .header-tabs {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
             .header-tab {
-                flex: 1 1 100%;
+                flex: 1 1 calc(50% - 8px);
+                text-align: center;
             }
         }
         
