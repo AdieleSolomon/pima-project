@@ -1,5 +1,19 @@
 (function () {
+  function normalizeBaseUrl(value) {
+    if (!value) return value;
+    return value.replace(/\/+$/, "");
+  }
+
   function resolveApiBaseUrl() {
+    const injected =
+      window.__APP_CONFIG__?.API_BASE_URL ||
+      window.API_BASE_URL ||
+      document.querySelector('meta[name="api-base-url"]')?.getAttribute("content");
+
+    if (injected && injected.trim()) {
+      return normalizeBaseUrl(injected.trim());
+    }
+
     if (window.location.protocol === "file:") {
       return "http://localhost:5500";
     }

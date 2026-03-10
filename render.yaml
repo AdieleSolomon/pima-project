@@ -27,9 +27,11 @@ services:
       - key: PG_PASSWORD
         sync: false
       - key: PG_DB_NAME
-        value: pima_training_institute
+        value: postgres
       - key: PG_SSL
         value: "true"
+      - key: PG_FAMILY
+        value: "4"
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS

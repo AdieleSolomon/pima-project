@@ -448,6 +448,8 @@ const mysqlDbConfig = {
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
 };
+const pgFamilyEnv = Number(process.env.PG_FAMILY);
+const pgFamily = Number.isNaN(pgFamilyEnv) ? (isDevelopment ? null : 4) : pgFamilyEnv;
 const postgresDbConfig = {
     connectionString: process.env.SUPABASE_DB_URL || process.env.DATABASE_URL,
     host: process.env.PG_HOST,
@@ -456,6 +458,7 @@ const postgresDbConfig = {
     database: process.env.PG_DB_NAME || DEFAULT_DB_NAME,
     port: process.env.PG_PORT ? Number(process.env.PG_PORT) : 5432,
     ssl: process.env.PG_SSL === 'false' ? false : { rejectUnauthorized: false },
+    ...(pgFamily ? { family: pgFamily } : {}),
     max: 10,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 60000,
