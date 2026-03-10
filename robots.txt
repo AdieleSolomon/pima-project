@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin-dashboard.html
+Disallow: /teacher-dashboard.html
+Disallow: /student-profile.html
+Sitemap: https://pima-project.vercel.app/sitemap.xml

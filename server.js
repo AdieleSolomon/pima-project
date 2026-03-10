@@ -23,6 +23,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5500; 
 
+// Render/Reverse proxy support so rate limiting uses correct client IPs
+app.set('trust proxy', 1);
+
 const defaultContentSeed = {
     news: [
         {
