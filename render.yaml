@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: pima-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_CLIENT
+        value: postgres
+      - key: DB_NAME
+        value: pima_training_institute
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_DB_URL
+        sync: false
+      - key: PG_HOST
+        sync: false
+      - key: PG_PORT
+        value: "5432"
+      - key: PG_USER
+        sync: false
+      - key: PG_PASSWORD
+        sync: false
+      - key: PG_DB_NAME
+        value: pima_training_institute
+      - key: PG_SSL
+        value: "true"
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: FRONTEND_URL
+        value: https://pima-project.vercel.app
+      - key: ALLOWED_ORIGINS
+        value: https://pima-project.vercel.app,https://pima-project-pkfebcovj-solomon-adieles-projects.vercel.app

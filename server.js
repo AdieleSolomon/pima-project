@@ -23,6 +23,81 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5500; 
 
+const defaultContentSeed = {
+    news: [
+        {
+            id: 1,
+            title: "Revised Academic Activities for 2025/2026 Second Semester",
+            summary: "Updated workshop rotation, practical assessment windows, and semester milestones are now active across all schools.",
+            image_url: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+            link: "contact.html",
+            category: "Academic Calendar",
+            published_at: "2026-02-23T09:00:00Z"
+        },
+        {
+            id: 2,
+            title: "Convocation Week Events and Guest Lectures Announced",
+            summary: "Institutional leadership confirms the 17th convocation week activity schedule with industry keynote sessions.",
+            image_url: "https://images.unsplash.com/photo-1588072432904-843af37f03ed?auto=format&fit=crop&w=800&q=80",
+            link: "about.html",
+            category: "Campus News",
+            published_at: "2026-01-21T08:30:00Z"
+        },
+        {
+            id: 3,
+            title: "Postgraduate Technical Programs: Application Window Open",
+            summary: "Applications are now open for advanced technical specialization tracks for the next academic cycle.",
+            image_url: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+            link: "programs.html#admission-track",
+            category: "Admissions",
+            published_at: "2026-01-15T07:45:00Z"
+        },
+        {
+            id: 4,
+            title: "Industry Partnership Lab Launched for Apprenticeship Placement",
+            summary: "The institute has launched a new placement pipeline with partner workshops and technical service firms.",
+            image_url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+            link: "programs.html",
+            category: "Partnership",
+            published_at: "2025-12-18T10:10:00Z"
+        }
+    ],
+    events: [
+        {
+            id: 1,
+            title: "Skills Showcase and Open Lab Day",
+            summary: "Prospective applicants can visit workshops and engage live with instructors and student projects.",
+            event_date: "2026-03-12T09:00:00Z",
+            location: "Main Campus Practical Studios",
+            link: "contact.html"
+        },
+        {
+            id: 2,
+            title: "Admissions Guidance Clinic",
+            summary: "One-on-one advisory session for applicants on program selection and enrollment pathways.",
+            event_date: "2026-03-20T10:00:00Z",
+            location: "Admissions Hall",
+            link: "contact.html"
+        },
+        {
+            id: 3,
+            title: "Entrepreneurship Bootcamp",
+            summary: "Business startup strategy sessions for trainees preparing for self-employment after graduation.",
+            event_date: "2026-04-04T09:30:00Z",
+            location: "Innovation Hub Annex",
+            link: "programs.html#short-courses"
+        },
+        {
+            id: 4,
+            title: "Faculty-Industry Roundtable",
+            summary: "Advisory board meeting with partner employers on curriculum relevance and placement opportunities.",
+            event_date: "2026-04-18T11:00:00Z",
+            location: "Council Chamber",
+            link: "about.html#leadership"
+        }
+    ]
+};
+
 // =============================
 // ENVIRONMENT CONFIGURATION
 // =============================
@@ -61,18 +136,39 @@ app.use(compression());
 app.use(json());
 
 // =============================
-// FIXED CORS CONFIGURATION
+// CORS CONFIGURATION
 // =============================
+const defaultDevOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:5500',
+    'http://127.0.0.1:3000',
+    'http://localhost:5500', // Add this for your HTML file
+    'http://127.0.0.1:5501', // Common alternative port
+    'file://' // Allow file protocol for local HTML files
+];
+
+const envOrigins = (process.env.ALLOWED_ORIGINS || '')
+    .split(',')
+    .map(origin => origin.trim())
+    .filter(Boolean);
+
+if (process.env.FRONTEND_URL) {
+    envOrigins.push(process.env.FRONTEND_URL.trim());
+}
+
+const uniqueOrigins = (origins) => [...new Set(origins)];
+const allowedOrigins = isDevelopment
+    ? uniqueOrigins([...defaultDevOrigins, ...envOrigins])
+    : (envOrigins.length > 0 ? uniqueOrigins(envOrigins) : defaultDevOrigins);
+
 app.use(cors({
-    origin: [
-        'http://localhost:3000', 
-        'http://localhost:3001', 
-        'http://127.0.0.1:5500',
-        'http://127.0.0.1:3000',
-        'http://localhost:5500', // Add this for your HTML file
-        'http://127.0.0.1:5501', // Common alternative port
-        'file://' // Allow file protocol for local HTML files
-    ],
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        if (origin === 'null' && allowedOrigins.includes('file://')) return callback(null, true);
+        return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -284,6 +380,49 @@ const upload = multer({
 
 // Serve static files from uploads directory
 app.use('/uploads', express.static(uploadsDir));
+app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
+
+const dataDir = path.join(process.cwd(), 'data');
+const contentDataPath = path.join(dataDir, 'content.json');
+
+const ensureContentSeedFile = () => {
+    try {
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        if (!fs.existsSync(contentDataPath)) {
+            fs.writeFileSync(contentDataPath, JSON.stringify(defaultContentSeed, null, 2), 'utf8');
+            console.log(`Seeded content file: ${contentDataPath}`);
+        }
+    } catch (error) {
+        console.error('Error ensuring content seed file:', error.message);
+    }
+};
+
+const sanitizeLimit = (value, fallback = 4, max = 20) => {
+    const parsed = Number.parseInt(value, 10);
+    if (Number.isNaN(parsed)) return fallback;
+    return Math.max(1, Math.min(parsed, max));
+};
+
+const readSeedContent = async () => {
+    try {
+        const raw = await fs.promises.readFile(contentDataPath, 'utf8');
+        const parsed = JSON.parse(raw);
+        return {
+            news: Array.isArray(parsed.news) ? parsed.news : [...defaultContentSeed.news],
+            events: Array.isArray(parsed.events) ? parsed.events : [...defaultContentSeed.events]
+        };
+    } catch (error) {
+        console.warn('Failed reading content seed file, using default in-memory seed:', error.message);
+        return {
+            news: [...defaultContentSeed.news],
+            events: [...defaultContentSeed.events]
+        };
+    }
+};
+
+ensureContentSeedFile();
 
 // =============================
 // ENHANCED DATABASE CONNECTION WITH BETTER ERROR HANDLING
@@ -915,8 +1054,8 @@ app.get("/health/detailed", authenticateToken, requireRole('admin'), (req, res) 
 // ROUTES
 // =============================
 
-// Default route
-app.get("/", (req, res) => {
+// API info route
+app.get("/api", (req, res) => {
     res.json({
         message: "PIMA TRAINING INSTITUTE API is running",
         version: "1.0.0",
@@ -928,11 +1067,154 @@ app.get("/", (req, res) => {
             teacherLogin: "/api/teachers/login",
             studentLogin: "/api/students/login",
             getStudents: "/api/students",
-            fileUploads: "/uploads/",
-            documentation: "https://github.com/your-repo/docs"
+            newsFeed: "/api/content/news",
+            eventsFeed: "/api/content/events",
+            fileUploads: "/uploads/"
         },
         timestamp: new Date().toISOString()
     });
+});
+
+const normalizeNewsItem = (item) => ({
+    id: item.id,
+    title: item.title || "Untitled News",
+    summary: item.summary || "",
+    image_url: item.image_url || "",
+    link: item.link || item.slug || "index.html",
+    category: item.category || "News",
+    published_at: item.published_at || item.created_at || new Date().toISOString()
+});
+
+const normalizeEventItem = (item) => ({
+    id: item.id,
+    title: item.title || "Untitled Event",
+    summary: item.summary || "",
+    event_date: item.event_date || item.starts_at || item.created_at || new Date().toISOString(),
+    location: item.location || "Main Campus",
+    link: item.link || "contact.html"
+});
+
+const fetchNewsFromDatabase = async (limit) => {
+    try {
+        const sql = `
+            SELECT id, title, summary, image_url, link, category, published_at, created_at
+            FROM news_updates
+            WHERE status IS NULL OR status = 'published'
+            ORDER BY COALESCE(published_at, created_at) DESC
+            LIMIT ?
+        `;
+        const rows = await runQuery(sql, [limit]);
+        return rows.map(normalizeNewsItem);
+    } catch (error) {
+        return [];
+    }
+};
+
+const fetchEventsFromDatabase = async (limit) => {
+    try {
+        const sql = `
+            SELECT id, title, summary, event_date, location, link, created_at
+            FROM campus_events
+            WHERE status IS NULL OR status = 'published'
+            ORDER BY COALESCE(event_date, created_at) ASC
+            LIMIT ?
+        `;
+        const rows = await runQuery(sql, [limit]);
+        return rows.map(normalizeEventItem);
+    } catch (error) {
+        return [];
+    }
+};
+
+app.get("/api/content/news", async (req, res) => {
+    try {
+        const limit = sanitizeLimit(req.query.limit, 4, 12);
+        const dbItems = await fetchNewsFromDatabase(limit);
+
+        if (dbItems.length > 0) {
+            return res.json({
+                success: true,
+                source: "database",
+                items: dbItems
+            });
+        }
+
+        const seed = await readSeedContent();
+        const items = seed.news.slice(0, limit).map(normalizeNewsItem);
+        return res.json({
+            success: true,
+            source: "seed",
+            items
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Unable to fetch news content"
+        });
+    }
+});
+
+app.get("/api/content/events", async (req, res) => {
+    try {
+        const limit = sanitizeLimit(req.query.limit, 4, 12);
+        const dbItems = await fetchEventsFromDatabase(limit);
+
+        if (dbItems.length > 0) {
+            return res.json({
+                success: true,
+                source: "database",
+                items: dbItems
+            });
+        }
+
+        const seed = await readSeedContent();
+        const items = seed.events.slice(0, limit).map(normalizeEventItem);
+        return res.json({
+            success: true,
+            source: "seed",
+            items
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Unable to fetch event content"
+        });
+    }
+});
+
+// Frontend pages
+const frontendPages = [
+    'index',
+    'about',
+    'programs',
+    'contact',
+    'student-profile',
+    'teacher-dashboard',
+    'admin-dashboard'
+];
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'index.html'));
+});
+
+app.get("/:page", (req, res, next) => {
+    const { page } = req.params;
+
+    if (!frontendPages.includes(page)) {
+        return next();
+    }
+
+    res.sendFile(path.join(process.cwd(), `${page}.html`));
+});
+
+app.get("/:page.html", (req, res, next) => {
+    const { page } = req.params;
+
+    if (!frontendPages.includes(page)) {
+        return next();
+    }
+
+    res.sendFile(path.join(process.cwd(), `${page}.html`));
 });
 
 // ENHANCED STUDENT REGISTRATION WITH VALIDATION
