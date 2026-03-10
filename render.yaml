@@ -32,6 +32,8 @@ services:
         value: "true"
       - key: PG_FAMILY
         value: "4"
+      - key: NODE_OPTIONS
+        value: --dns-result-order=ipv4first
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS
