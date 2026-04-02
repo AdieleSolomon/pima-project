@@ -1,4 +1,4 @@
--- PostgreSQL migration: initial schema for PIMA TRAINING INSTITUTE
+-- PostgreSQL migration: initial schema for PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES
 -- Target: PostgreSQL 14+ (Supabase)
 
 BEGIN;

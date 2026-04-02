@@ -955,15 +955,15 @@ const EmailUtils = {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: studentEmail,
-                subject: 'Welcome to PIMA TRAINING INSTITUTE Technological Hub!',
+                subject: 'Welcome to PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES (PIMA)!',
                 html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h2 style="color: #2d1b3d; text-align: center;">Welcome to PIMA TRAINING INSTITUTE!</h2>
+                <h2 style="color: #2d1b3d; text-align: center;">Welcome to PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES (PIMA)!</h2>
                 <div style="background: linear-gradient(135deg, #4a2c5a 0%, #3d1a4f 100%); padding: 20px; border-radius: 10px; color: white;">
                     <h3 style="color: #ffd700;">Hello ${studentName},</h3>
-                    <p>Welcome to PIMA TRAINING INSTITUTE Technological Hub! We're excited to have you join our community.</p>
+                    <p>Welcome to PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES (PIMA)! We're excited to have you join our community.</p>
                     <p>Your registration has been successfully processed.</p>
-                    <p style="color: #ffd700; font-weight: bold;">Best regards,<br>The PIMA TRAINING INSTITUTE Team</p>
+                    <p style="color: #ffd700; font-weight: bold;">Best regards,<br>The PIMA Team</p>
                 </div>
                 </div>
                 `
@@ -988,13 +988,13 @@ const EmailUtils = {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: email,
-                subject: 'Password Reset Code - PIMA TRAINING INSTITUTE',
+                subject: 'Password Reset Code - PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES (PIMA)',
                 html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                 <h2 style="color: #2d1b3d; text-align: center;">Password Reset</h2>
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #4a2c5a;">
                     <h3 style="color: #4a2c5a;">Hello ${userName},</h3>
-                    <p>You requested a password reset for your PIMA TRAINING INSTITUTE account.</p>
+                    <p>You requested a password reset for your PIMA account.</p>
                     <p>Use the following reset code to create a new password:</p>
                     <div style="text-align: center; margin: 20px 0;">
                         <div style="display: inline-block; background: #4a2c5a; color: white; padding: 15px 30px; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 8px;">
@@ -1063,7 +1063,7 @@ app.get("/health/detailed", authenticateToken, requireRole('admin'), (req, res) 
 // API info route
 app.get("/api", (req, res) => {
     res.json({
-        message: "PIMA TRAINING INSTITUTE API is running",
+        message: "PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES API is running",
         version: "1.0.0",
         environment: process.env.NODE_ENV || 'development',
         endpoints: {
@@ -1884,7 +1884,7 @@ app.get("/api/students/export/csv", authenticateToken, requireRole('admin'), (re
             .join('\n');
 
         res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', 'attachment; filename=pima-training-institute-students.csv');
+        res.setHeader('Content-Disposition', 'attachment; filename=pima-students.csv');
         res.send(csvContent);
     });
 });
@@ -1909,12 +1909,12 @@ app.get("/api/students/export/pdf", authenticateToken, requireRole('admin'), (re
             const doc = new PDFDocument();
 
             res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename=pima-training-institute-students.pdf');
+            res.setHeader('Content-Disposition', 'attachment; filename=pima-students.pdf');
 
             doc.pipe(res);
 
             // Add title
-            doc.fontSize(20).text('PIMA TRAINING INSTITUTE Students Report', { align: 'center' });
+            doc.fontSize(20).text('PIMA Students Report', { align: 'center' });
             doc.moveDown();
             doc.fontSize(12).text(`Generated on: ${new Date().toLocaleDateString()}`, { align: 'center' });
             doc.text(`Total Students: ${result.length}`, { align: 'center' });

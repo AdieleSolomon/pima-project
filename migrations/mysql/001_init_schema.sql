@@ -1,4 +1,4 @@
--- MySQL migration: initial schema for PIMA TRAINING INSTITUTE
+-- MySQL migration: initial schema for PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES
 -- Target: MySQL 8+ (Laragon)
 
 SET NAMES utf8mb4;

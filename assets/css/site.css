@@ -142,7 +142,8 @@ img {
 }
 
 .brand-mark {
-  width: 46px;
+  width: 58px;
+  min-width: 58px;
   height: 46px;
   border-radius: 12px;
   display: grid;
@@ -150,6 +151,14 @@ img {
   background: radial-gradient(circle at 25% 20%, #f1ca84, #dca23c);
   color: #14213a;
   font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .brand-copy h1 {
@@ -159,10 +168,13 @@ img {
 }
 
 .brand-copy span {
+  display: block;
+  text-align: center;
   font-size: 0.72rem;
   color: var(--muted);
   letter-spacing: 0.11em;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 .menu-toggle {
@@ -356,6 +368,17 @@ img {
   padding: 7rem 0 6.2rem;
 }
 
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 360px);
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-main {
+  max-width: 760px;
+}
+
 .hero-title {
   font-family: "EB Garamond", serif;
   font-size: clamp(2.1rem, 5vw, 4.25rem);
@@ -374,6 +397,47 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
+}
+
+.founder-card {
+  justify-self: end;
+  width: min(100%, 320px);
+  background: rgba(10, 25, 53, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 22px 46px rgba(3, 10, 23, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.founder-card img {
+  width: 100%;
+  height: clamp(260px, 34vw, 320px);
+  object-fit: cover;
+  object-position: top center;
+}
+
+.founder-card-body {
+  padding: 1.2rem 1.2rem 1.35rem;
+}
+
+.founder-quote {
+  font-family: "EB Garamond", serif;
+  font-size: 1.32rem;
+  line-height: 1.35;
+  color: #fff4d9;
+}
+
+.founder-name {
+  margin-top: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+
+.founder-role {
+  margin-top: 0.2rem;
+  color: #cbd8f4;
 }
 
 .btn {
@@ -946,6 +1010,20 @@ main section {
 }
 
 @media (max-width: 1100px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .hero-main,
+  .founder-card {
+    max-width: 100%;
+  }
+
+  .founder-card {
+    justify-self: start;
+  }
+
   .menu-toggle {
     display: inline-flex;
   }
@@ -1049,6 +1127,14 @@ main section {
 
   .hero-content {
     padding: 6.4rem 0 5rem;
+  }
+
+  .founder-card-body {
+    padding: 1rem 1rem 1.15rem;
+  }
+
+  .founder-quote {
+    font-size: 1.14rem;
   }
 
   .stats-band {

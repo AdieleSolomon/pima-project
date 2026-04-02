@@ -1,7 +1,7 @@
 {
   "name": "pima-training-institute",
   "version": "1.0.0",
-  "description": "PIMA TRAINING INSTITUTE Student Management System",
+  "description": "PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES Student Management System",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "express",
     "mysql"
   ],
-  "author": "PIMA TRAINING INSTITUTE",
+  "author": "PATHWAYS INSTITUTE FOR MOBILITY ALTERNATIVES",
   "license": "MIT"
 }
 
