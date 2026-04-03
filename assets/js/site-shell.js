@@ -1,6 +1,7 @@
 (function () {
   const menuToggle = document.getElementById("menuToggle");
   const mainNav = document.getElementById("mainNav");
+  const applyUrl = "index.html?modal=register";
 
   const menuTree = [
     { label: "Home", href: "index.html" },
@@ -48,7 +49,7 @@
     {
       label: "Admission",
       children: [
-        { label: "Apply Now", href: "index.html" },
+        { label: "Apply Now", href: applyUrl },
         { label: "Eligibility Guide", href: "programs.html#admission-track" },
         { label: "Tuition Enquiry", href: "contact.html" }
       ]
@@ -70,7 +71,7 @@
       ]
     },
     { label: "Contact", href: "contact.html" },
-    { label: "Apply", href: "index.html", cta: true }
+    { label: "Apply", href: applyUrl, cta: true }
   ];
 
   function escapeHtml(value) {

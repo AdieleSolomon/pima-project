@@ -108,7 +108,7 @@
               <li${borderStyle}>
                 <strong>${escapeHtml(event.title)}</strong>
                 <p class="section-note" style="font-size: 0.84rem">${escapeHtml(
-                  `${formatDate(event.event_date)} • ${event.location || "Main Campus"}`
+                  `${formatDate(event.event_date)} - ${event.location || "Main Campus"}`
                 )}</p>
               </li>
             `;
@@ -126,6 +126,14 @@
     reset: document.getElementById("resetModal")
   };
 
+  function normalizeModalKey(value) {
+    return String(value || "")
+      .trim()
+      .replace(/^#/, "")
+      .replace(/Modal$/i, "")
+      .toLowerCase();
+  }
+
   function openModal(key) {
     const modal = modalMap[key];
     if (modal) {
@@ -142,8 +150,30 @@
     }
   }
 
+  function openModalFromLocation() {
+    const currentUrl = new URL(window.location.href);
+    const modalKey = normalizeModalKey(currentUrl.searchParams.get("modal") || currentUrl.hash);
+
+    if (!modalKey || !Object.prototype.hasOwnProperty.call(modalMap, modalKey)) {
+      return;
+    }
+
+    openModal(modalKey);
+
+    currentUrl.searchParams.delete("modal");
+    if (normalizeModalKey(currentUrl.hash) === modalKey) {
+      currentUrl.hash = "";
+    }
+
+    if (typeof window.history.replaceState === "function") {
+      const nextUrl = `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`;
+      window.history.replaceState({}, document.title, nextUrl);
+    }
+  }
+
   document.querySelectorAll("[data-open-modal]").forEach(function (button) {
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
       openModal(button.getAttribute("data-open-modal"));
     });
   });
@@ -163,6 +193,8 @@
       }
     });
   });
+
+  openModalFromLocation();
 
   // Registration
   const registrationForm = document.getElementById("registrationForm");
